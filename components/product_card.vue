@@ -1,7 +1,7 @@
 <script setup>
 
 
-defineProps(["name","description","price"])
+defineProps(["name","description","price","id","cuantity"])
 
 const emits = defineEmits(["add","del"])
 
@@ -19,18 +19,20 @@ const del = ()=>{
 
 <template>
 
-<div class="">
-    <div class="">
-        <img src="" alt="" class="">
+<div class="p-2 border-2 border-red-700 rounded-lg">
+    <div class="flex gap-2 items-center">
+       <div class="max-w-[30%] overflow-hidden rounded-lg">        
+        <img class="max-w-full" :src="`https://firebasestorage.googleapis.com/v0/b/desideri-6e6c2.firebasestorage.app/o/productos%2F${id}.png?alt=media&token=96095759-def0-4699-85e7-2279dfe6a61d`" alt="" >
+       </div>
         <div class="">
             <div class="">
-                <span class="">{{ name }}</span>
-                <p class="">{{ description }}</p>
+                <span class="pol text-2xl">{{ name }}</span>
+                <p class="font-poppins">{{ description }}</p>
             </div>
-            <div class="">
-                <span class="}">{{ price }}</span>
-                <button class="bg-red-400" @click="add" >Al carrito </button>
-                <button class="bg-blue-400" @click="del" >eliminar </button>
+            <div class="flex w-full gap-5 justify-between ">
+                <span class="text-xl font-poppins font-bold text-red-500">{{ price }}</span>
+                <button v-if="cuantity < 1" class="bg-red-700 rounded-full w-full font-poppins text-white font-semibold" @click="add" >Al carrito </button>
+                
             </div>
         </div>
     </div>

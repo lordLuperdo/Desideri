@@ -1,22 +1,117 @@
 <script setup>
+import { NeatGradient} from '@firecms/neat';
 import { useProductsStore } from '~/store/productos';
 import { useSellStore } from '~/store/compra';
 import heads from '~/components/head.vue';
 import product_card from '~/components/product_card.vue';
-import cart from '~/components/cart.vue';
+
 import hero from '~/img/hero.png'
 
-const {products,choice_cat} = useProductsStore()
+
+const {choice_cat,products} = useProductsStore()
 const sellStore = useSellStore()
 const productStore = useProductsStore()
 
-const categories = ["juguetes","disfraces","aceites",""]
+const categories = ["juguetes","disfraces","aceites","","potenciadores","juegos","fragancias"]
 
 const choicen_category = ref("")
+
+
+
+const canvasRef = ref(null)
+let gradient = null
+
+
+
+onMounted(() => {
+  gradient = new NeatGradient({
+    ref: canvasRef.value,
+      colors: [
+        {
+            color: '#FFF3F3',
+            enabled: true,
+        },
+        {
+            color: '#FFCDCD',
+            enabled: true,
+        },
+        {
+            color: '#FBDCDC',
+            enabled: true,
+        },
+        {
+            color: '#FFEAEA',
+            enabled: true,
+        },
+        {
+            color: '#F6FFFF',
+            enabled: true,
+        },
+    ],
+    speed: 5,
+    horizontalPressure: 4,
+    verticalPressure: 2,
+    waveFrequencyX: 4,
+    waveFrequencyY: 4,
+    waveAmplitude: 3,
+    shadows: 1,
+    highlights: 7,
+    colorBrightness: 1,
+    colorSaturation: 0,
+    wireframe: false,
+    colorBlending: 5,
+    backgroundColor: '#00A2FF',
+    backgroundAlpha: 1,
+    grainScale: 36,
+    grainSparsity: 0,
+    grainIntensity: 0,
+    grainSpeed: 0,
+    resolution: 2,
+    yOffset: 200.19998168945312,
+    yOffsetWaveMultiplier: 20,
+    yOffsetColorMultiplier: 0,
+    yOffsetFlowMultiplier: 7.8,
+    flowDistortionA: 0.4,
+    flowDistortionB: 3,
+    flowScale: 3.3,
+    flowEase: 0.53,
+    flowEnabled: true,
+    mouseDistortionStrength: 0.12,
+    mouseDistortionRadius: 0.25,
+    mouseDecayRate: 0.96,
+    mouseDarken: 0.24,
+    enableProceduralTexture: false,
+    textureVoidLikelihood: 0.06,
+    textureVoidWidthMin: 10,
+    textureVoidWidthMax: 500,
+    textureBandDensity: 0.8,
+    textureColorBlending: 0.06,
+    textureSeed: 333,
+    textureEase: 0.75,
+    proceduralBackgroundColor: '#003FFF',
+    textureShapeTriangles: 20,
+    textureShapeCircles: 15,
+    textureShapeBars: 15,
+    textureShapeSquiggles: 10,
+  })
+})
+
+onBeforeUnmount(() => {
+  if (gradient) gradient.destroy()
+})
+
+
 </script>
 
 
 <template>
+ 
+
+   
+    <canvas ref="canvasRef" class="gradient-bg"></canvas>
+
+
+
     <heads></heads>
     
     <main class="mt-24 px-5">
@@ -43,22 +138,12 @@ const choicen_category = ref("")
     </section>
 
     <section class="">
-        <div class="">
-            <h2 class=""></h2>
-            <div class="relative">
-                <div class="star"></div>
-                <div class="categories">
-                    <button class="">precio</button>
-                    <button class=""></button>
-                    <button></button>
-                </div>
-                <button class="">Ordenar por</button>
-            </div>
-        </div>
         
-        <div class="px-5 flex flex-col gap-2">
+        
+        <div class="px-5 flex flex-col gap-2 mt-5">
+            <h3 class="pol text-center text-5xl ">Aceites</h3>
      <product_card
-     v-for="product in products"
+     v-for="product in productStore.products.filter(p => p.category === 'Aceites')"
      :key="product"
      :name="product.name"
      :description="product.description"
@@ -66,7 +151,39 @@ const choicen_category = ref("")
      :price="product.price"
      :cuantity="product.cart_cuantity"
      @add="sellStore.addtocart(product)"
-     @del="sellStore.deletetocart(product)"
+     @del="sellStore.restar(product)"
+     ></product_card>
+
+        </div>
+
+        <div class="px-5 flex flex-col gap-2 mt-5">
+            <h3 class="pol text-center text-5xl">Disfraces</h3>
+     <product_card
+     v-for="product in productStore.products.filter(p => p.category === 'Disfraces')"
+     :key="product"
+     :name="product.name"
+     :description="product.description"
+     :id="product.id"
+     :price="product.price"
+     :cuantity="product.cart_cuantity"
+     @add="sellStore.addtocart(product)"
+     @del="sellStore.restar(product)"
+     ></product_card>
+
+        </div>
+
+         <div class="px-5 flex flex-col gap-2 mt-5">
+            <h3 class="pol text-center text-5xl">Juguetes</h3>
+     <product_card
+     v-for="product in productStore.products.filter(p => p.category === 'Juguetes')"
+     :key="product"
+     :name="product.name"
+     :description="product.description"
+     :id="product.id"
+     :price="product.price"
+     :cuantity="product.cart_cuantity"
+     @add="sellStore.addtocart(product)"
+     @del="sellStore.restar(product)"
      ></product_card>
 
         </div>
@@ -76,18 +193,9 @@ const choicen_category = ref("")
 
     </section>
 
-    {{ sellStore.carrito.length>0 ? sellStore.carrito : "Carrito vacio" }}
+    
 
-    <cart></cart>
-    -------------------------------------------------------------------------------------------------
-
-    <button class="border-2 border-emerald-400" @click="choice_cat(categories[0])">Juguetes</button>
-    <button class="border-2 border-emerald-400" @click="choice_cat(categories[1])">Disfraces</button>
-    <button class="border-2 border-emerald-400" @click="choice_cat(categories[2])">Aceites</button>
-    <button class="border-2 border-emerald-400" @click="choice_cat(categories[3])">todo</button>
-
-     
-    {{ productStore.filter_prod }}
+   
     
 
 </template>
@@ -100,5 +208,15 @@ const choicen_category = ref("")
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
+}
+
+
+.gradient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; 
 }
 </style>

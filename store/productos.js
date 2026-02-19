@@ -9,7 +9,7 @@ export const useProductsStore = defineStore('productos', ()=> {
     price:300000,
     description:"Este aceite viene del Quindio y es muy rico cuando se lame",
     inventary:"",
-    category:"aceites",
+    category:"Aceites",
     cart_cuantity:0,
     search_words:""
   },
@@ -19,7 +19,7 @@ export const useProductsStore = defineStore('productos', ()=> {
     price:200000,
     description:"Este aceite viene del Quindio y es muy rico cuando se lame",
     inventary:"",
-    category:"juguetes",
+    category:"Juguetes",
     cart_cuantity:0,
     search_words:""
   },
@@ -29,7 +29,7 @@ export const useProductsStore = defineStore('productos', ()=> {
     price:100000,
     description:"Este aceite viene del Quindio y es muy rico cuando se lame",
     inventary:"",
-    category:"disfraces",
+    category:"Disfraces",
     cart_cuantity:0,
     search_words:""
   },

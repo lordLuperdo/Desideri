@@ -9,10 +9,12 @@ const addtocart = (product) => {
    carrito.value.push(product)
    product.cart_cuantity++
    final_price.value += product.price
+   console.log( product.cart_cuantity)
 
  }else{
     product.cart_cuantity++
     final_price.value += product.price  
+    console.log( product.cart_cuantity)
  }
 }
 
@@ -23,11 +25,25 @@ const deletetocart = (product) => {
     
 }
 
-const sumar = (prod) => {final_price += prod.price}
+const sumar = (price, cart_cuantity) => {
+      final_price.value += price
+      cart_cuantity++
+      console.log(cart_cuantity)
+
+}
 
 
 const restar = (prod) => {
-   prod.cart_cuantity >1 ? final_price -= prod.price : deletetocart(prod)
+
+   if(prod.cart_cuantity > 1){
+     final_price.value -= prod.price
+     prod.cart_cuantity--
+     
+   }else{
+      deletetocart(prod)
+   }
+    
+     
 }
 
 const carrito = ref([])

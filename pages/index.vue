@@ -114,35 +114,35 @@ onBeforeUnmount(() => {
 
     <heads></heads>
     
-    <main class="mt-24 px-5">
+    <main class="mt-20 px-5 flex justify-center md:px-64 ">
         <img :src="hero" alt="">
     </main>
     
     <section class="p-5">
-        <div class="imag"><img src="https://firebasestorage.googleapis.com/v0/b/desideri-6e6c2.firebasestorage.app/o/banners%2F101.png?alt=media&token=65e6351a-1169-4717-abf0-fa19edc89193" alt=""></div>
+        <div class="imag flex justify-center"><img src="https://firebasestorage.googleapis.com/v0/b/desideri-6e6c2.firebasestorage.app/o/banners%2F101.png?alt=media&token=65e6351a-1169-4717-abf0-fa19edc89193" alt=""></div>
     </section>
     
-    <section class="">
+    <section class="md:mb-20">
 
-        <h2 class="text-5xl pol  font-bold text-center">Categorías</h2>
+        <h2 class="text-4xl pol  font-bold text-center md:text-5xl ">Categorías</h2>
         <p class="text  font-poppins text-center mt-2">Escoge la categoría que buscas</p>
 
-        <div class=" flex gap-3 flex-wrap justify-center p-3">
-            <button @click="choicen_category = 'Aceites' " class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Aceites</button>
-            <button @click="choicen_category = 'Potenciadores' " class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Potenciadores</button>
-            <button @click="choicen_category = 'Lubricantes' " class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Lubricantes</button>
-                        <button @click="choicen_category = 'Juguetes' " class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Juguetes</button>
+        <div class=" flex gap-x-4 gap-y-3 flex-wrap justify-center p-3 md:gap-x-6">
+            <button @click="choicen_category = 'Aceites' " class="px-5 min-w-[40%] md:min-w-[20%] bg-red-950 rounded-full text-white py-1">Aceites</button>
+            <button @click="choicen_category = 'Potenciadores' " class="px-5 min-w-[40%] md:min-w-[20%] bg-red-950 rounded-full text-white py-1">Potenciadores</button>
+            <button @click="choicen_category = 'Lubricantes' " class="px-5 min-w-[40%] md:min-w-[20%] bg-red-950 rounded-full text-white py-1">Lubricantes</button>
+                        <button @click="choicen_category = 'Juguetes' " class="px-5 min-w-[40%] md:min-w-[20%] bg-red-950 rounded-full text-white py-1">Juguetes</button>
 
-            <button @click="choicen_category = '' " class="px-5 min-w-[60%] bg-red-500 rounded-full text-white py-2">Todo</button>
+            <button @click="choicen_category = '' " class="px-5 min-w-[60%] bg-red-500 rounded-full text-white py-1">Todo</button>
            
         </div>
     </section>
 
-    <section class="">
+    <section class="px-2">
         
-        
-        <div class="px-5 flex flex-col gap-2 mt-5" v-if="choicen_category === 'Lubricantes' || choicen_category === ''">
-            <h3 class="pol text-center text-5xl ">Lubricantes</h3>
+           <h3 class="pol text-center text-4xl mt-5 "  v-if="choicen_category === 'Lubricantes' || choicen_category === ''">Lubricantes</h3>
+        <div class="px-5 flex flex-col gap-3 md:flex-wrap md:flex-row justify-center mt-2" v-if="choicen_category === 'Lubricantes' || choicen_category === ''">
+            
      <product_card
      v-for="product in productStore.products.filter(p => p.category === 'Lubricantes')"
      :key="product"
@@ -156,9 +156,10 @@ onBeforeUnmount(() => {
      ></product_card>
 
         </div>
-
-         <div class="px-5 flex flex-col gap-2 mt-5" v-if="choicen_category === 'Potenciadores' || choicen_category === ''">
-            <h3 class="pol text-center text-5xl">Poteciadores</h3>
+              
+        <h3 class="pol text-center text-4xl mt-5" v-if="choicen_category === 'Potenciadores' || choicen_category === ''" >Poteciadores</h3>
+         <div class="px-5 flex flex-col gap-2  md:flex-wrap md:flex-row justify-center mt-2" v-if="choicen_category === 'Potenciadores' || choicen_category === ''">
+            
      <product_card
      v-for="product in productStore.products.filter(p => p.category === 'Potenciadores')"
      :key="product"
@@ -172,9 +173,10 @@ onBeforeUnmount(() => {
      ></product_card>
 
         </div>
-
-        <div class="px-5 flex flex-col gap-2 mt-5" v-if="choicen_category === 'Aceites' || choicen_category === ''">
-            <h3 class="pol text-center text-5xl">Aceites</h3>
+          
+        <h3 class=" mt-5 pol text-center text-4xl " v-if="choicen_category === 'Aceites' || choicen_category === ''" >Aceites</h3>
+        <div class="px-5 flex flex-col gap-2  md:flex-wrap md:flex-row justify-center mt-2" v-if="choicen_category === 'Aceites' || choicen_category === ''">
+            
      <product_card
      v-for="product in productStore.products.filter(p => p.category === 'Aceites')"
      :key="product"
@@ -189,8 +191,9 @@ onBeforeUnmount(() => {
 
         </div>
 
-         <div class="px-5 flex flex-col gap-2 mt-5 mb-10" v-if="choicen_category === 'Juguetes' || choicen_category === ''">
-            <h3 class="pol text-center text-5xl">Juguetes</h3>
+           <h3 class="pol text-center text-4xl mt-5" v-if="choicen_category === 'Juguetes' || choicen_category === ''">Juguetes</h3>
+         <div class="px-5 flex flex-col gap-2  mb-10 md:flex-wrap md:flex-row justify-center mt-2" v-if="choicen_category === 'Juguetes' || choicen_category === ''">
+            
      <product_card
      v-for="product in productStore.products.filter(p => p.category === 'Juguetes')"
      :key="product"

@@ -9,11 +9,20 @@ const SellStore = useSellStore()
 
 const cart = SellStore.carrito
 
+const emits = defineEmits(["exit"])
+
+const exit = ()=> {
+  emits('exit')
+}
+
 
 </script>
 <template>
 
-<div v-if="active" class="  rounded-r-3xl rounded-l-3xl border-red-500 border-t-[1px] flex gap-2 flex-col bg-white/20 w-full back backdrop-blur-md fixed z-50 bottom-0 p-10">
+<div v-if="active" class="  rounded-r-3xl rounded-l-3xl border-red-500 border-t-[1px] flex gap-2 flex-col bg-white/40 w-full back backdrop-blur-md fixed z-50 bottom-0 p-10">
+    <div class="relative h-1 w-full">
+        <div @click="exit" class=" bg-red-700 text-white font-bold w-40 h-8 text-center items-center left-1/2 right-1/2 top-[-690%] justify-center rounded-full flex absolute font-poppins"><span class="px-4">x Cerrar carrito</span></div>
+    </div>
     <h3 class="pol text-4xl text-center">Revisa tu compra</h3>
     <p class="text-center font-poppins">Aquí están los productos que escogiste</p>
     <div class=""></div>

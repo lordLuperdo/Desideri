@@ -128,20 +128,53 @@ onBeforeUnmount(() => {
         <p class="text  font-poppins text-center mt-2">Escoge la categoría que buscas</p>
 
         <div class=" flex gap-3 flex-wrap justify-center p-3">
-            <button class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Aceites</button>
-            <button class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Potenciadores</button>
-            <button class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Juguetes</button>
-            <button class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Disfraces</button>
-            <button class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Juegos</button>
-            <button class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Fragancias</button>
+            <button @click="choicen_category = 'Aceites' " class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Aceites</button>
+            <button @click="choicen_category = 'Potenciadores' " class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Potenciadores</button>
+            <button @click="choicen_category = 'Lubricantes' " class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Lubricantes</button>
+                        <button @click="choicen_category = 'Juguetes' " class="px-5 min-w-[40%] bg-red-950 rounded-full text-white py-2">Juguetes</button>
+
+            <button @click="choicen_category = '' " class="px-5 min-w-[60%] bg-red-500 rounded-full text-white py-2">Todo</button>
+           
         </div>
     </section>
 
     <section class="">
         
         
-        <div class="px-5 flex flex-col gap-2 mt-5">
-            <h3 class="pol text-center text-5xl ">Aceites</h3>
+        <div class="px-5 flex flex-col gap-2 mt-5" v-if="choicen_category === 'Lubricantes' || choicen_category === ''">
+            <h3 class="pol text-center text-5xl ">Lubricantes</h3>
+     <product_card
+     v-for="product in productStore.products.filter(p => p.category === 'Lubricantes')"
+     :key="product"
+     :name="product.name"
+     :description="product.description"
+     :id="product.id"
+     :price="product.price"
+     :cuantity="product.cart_cuantity"
+     @add="sellStore.addtocart(product)"
+     @del="sellStore.restar(product)"
+     ></product_card>
+
+        </div>
+
+         <div class="px-5 flex flex-col gap-2 mt-5" v-if="choicen_category === 'Potenciadores' || choicen_category === ''">
+            <h3 class="pol text-center text-5xl">Poteciadores</h3>
+     <product_card
+     v-for="product in productStore.products.filter(p => p.category === 'Potenciadores')"
+     :key="product"
+     :name="product.name"
+     :description="product.description"
+     :id="product.id"
+     :price="product.price"
+     :cuantity="product.cart_cuantity"
+     @add="sellStore.addtocart(product)"
+     @del="sellStore.restar(product)"
+     ></product_card>
+
+        </div>
+
+        <div class="px-5 flex flex-col gap-2 mt-5" v-if="choicen_category === 'Aceites' || choicen_category === ''">
+            <h3 class="pol text-center text-5xl">Aceites</h3>
      <product_card
      v-for="product in productStore.products.filter(p => p.category === 'Aceites')"
      :key="product"
@@ -156,23 +189,7 @@ onBeforeUnmount(() => {
 
         </div>
 
-        <div class="px-5 flex flex-col gap-2 mt-5">
-            <h3 class="pol text-center text-5xl">Disfraces</h3>
-     <product_card
-     v-for="product in productStore.products.filter(p => p.category === 'Disfraces')"
-     :key="product"
-     :name="product.name"
-     :description="product.description"
-     :id="product.id"
-     :price="product.price"
-     :cuantity="product.cart_cuantity"
-     @add="sellStore.addtocart(product)"
-     @del="sellStore.restar(product)"
-     ></product_card>
-
-        </div>
-
-         <div class="px-5 flex flex-col gap-2 mt-5">
+         <div class="px-5 flex flex-col gap-2 mt-5 mb-10" v-if="choicen_category === 'Juguetes' || choicen_category === ''">
             <h3 class="pol text-center text-5xl">Juguetes</h3>
      <product_card
      v-for="product in productStore.products.filter(p => p.category === 'Juguetes')"
